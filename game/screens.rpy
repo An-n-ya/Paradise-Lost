@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 ## 初始化
 ################################################################################
 
@@ -350,6 +350,12 @@ screen main_menu():
     on "replace" action Play("music", audio.bgm_title)
 
     add gui.main_menu_background
+
+    ## Falling snow (layered particles) on the title screen.
+    add snow_back
+    add snow_mid
+    add snow_mid2
+    add snow_front
 
     ## 此空框可使标题菜单变暗。
     frame:

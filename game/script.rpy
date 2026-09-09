@@ -144,6 +144,78 @@ image bg room c night = "images/bg_room_c_night.jpg"
 image bg rooftop = "images/bg_rooftop.jpg"
 image bg agency = "images/bg_agency.jpg"
 
+## ------------------------------------------------------------------ title snow
+##
+## Layered falling-snow used on the title screen. Back-to-front layers share
+## the CreateFlutterParticles system from the Immersive Particle VFX library
+## (libs/immersive_particle_vfx). Files are referenced by explicit path so
+## this does not depend on automatic image registration.
+
+## Slowly-turn-and-sway helper for the foreground flakes (modelled on the
+## library's own rotate_leaf transform).
+transform rotate_snow(child, zoom=1.0, alpha=1.0):
+    child
+    zoom zoom alpha alpha
+    choice:
+        rotate 0
+        linear 5.0 rotate 360
+        repeat
+    choice:
+        rotate 0
+        linear 4.6 rotate -360
+        repeat
+    choice:
+        rotate -60
+        ease 3.2 rotate 60
+        ease 3.0 rotate -60
+        repeat
+
+define snow_back = CreateFlutterParticles(
+    image=Transform("images/ImmersiveParticleVFX/feniks snow dust fireflies rain/snow1.webp",
+                    xsize=7, fit="contain", alpha=0.4),
+    particle_size=7,
+    amount=220, fast=True,
+    xysize=(config.screen_width, 650), mask_borders=(0, 0, 0, 100),
+    xspeed=(-10, 10), yspeed=(60, 100),
+    flutter_width=50, flutter_xtime=(6, 10),
+)
+
+define snow_mid = CreateFlutterParticles(
+    image=Transform("images/ImmersiveParticleVFX/feniks snow dust fireflies rain/snow1.webp",
+                    xsize=10, fit="contain", alpha=0.5),
+    particle_size=10,
+    amount=140, fast=True,
+    xysize=(config.screen_width, 800), mask_borders=(0, 0, 0, 100),
+    xspeed=(-20, 20), yspeed=(100, 200),
+    flutter_width=100, flutter_xtime=(6, 10),
+)
+
+define snow_mid2 = CreateFlutterParticles(
+    image=Transform("images/ImmersiveParticleVFX/feniks snow dust fireflies rain/snow1.webp",
+                    xsize=15, fit="contain", alpha=0.6),
+    particle_size=15,
+    amount=90, fast=True,
+    xysize=(config.screen_width, config.screen_height),
+    xspeed=(-25, 25), yspeed=(180, 280),
+    flutter_width=120, flutter_xtime=(6, 10),
+)
+
+define snow_front = CreateFlutterParticles(
+    image=[
+        rotate_snow("images/ImmersiveParticleVFX/npckc snowflakes leaves stars/npckc_snow_1.png",
+                    zoom=0.10, alpha=0.55),
+        rotate_snow("images/ImmersiveParticleVFX/npckc snowflakes leaves stars/npckc_snow_4.png",
+                    zoom=0.10, alpha=0.55),
+        rotate_snow("images/ImmersiveParticleVFX/npckc snowflakes leaves stars/npckc_snow_2.png",
+                    zoom=0.08, alpha=0.55),
+        rotate_snow("images/ImmersiveParticleVFX/npckc snowflakes leaves stars/npckc_snow_6.png",
+                    zoom=0.10, alpha=0.55),
+    ],
+    particle_size=50,
+    amount=6, fast=True, delay=(0.0, 2.0),
+    xspeed=(-35, 35), yspeed=(260, 380),
+)
+
 ## ------------------------------------------------------------------ layout
 ##
 ## Single speaker slot: uniform 1080x1920 sprites shown at zoom 1.0 on a
