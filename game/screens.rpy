@@ -345,6 +345,10 @@ screen main_menu():
     ## 此语句可确保替换掉任何其他菜单屏幕。
     tag menu
 
+    ## 刚进入标题页面时播放标题 BGM
+    on "show" action Play("music", audio.bgm_title)
+    on "replace" action Play("music", audio.bgm_title)
+
     add gui.main_menu_background
 
     ## 此空框可使标题菜单变暗。

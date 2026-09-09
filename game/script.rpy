@@ -73,9 +73,11 @@ define config.narrator_menu = True
 
 ## ------------------------------------------------------------------ audio
 
+define audio.bgm_title = "audio/bgm-title.wav"
+define audio.bgm_theme = "audio/bgm-theme.wav"
 define audio.bgm_street = "audio/bgm-street.mp3"
 define audio.bgm_talk = "audio/bgm-talk.ogg"
-define audio.bgm_comedy = "audio/bgm-comedy.ogg"
+define audio.bgm_comedy = "audio/bgm-comedy.wav"
 
 define audio.se_wind = "audio/se-soundreality-wind-blowing.mp3"
 define audio.se_snow = "audio/se-snow-footstep.mp3"
@@ -250,7 +252,7 @@ label s1:
     show satia eyebrow
 
     satia "「我看看……『常见副作用：嗜睡、口干、食欲改变、头晕』。」"
-    satia "「好家伙。这不是副作用清单，这是我退学那一年的年终总结。」"
+    satia "「好家伙，你确定这不是毒药？」"
 
     show liris side with dissolve
 
@@ -273,7 +275,7 @@ label s1:
 
     show satia smirk
 
-    satia "「连药盒都要卷吗。这是照顾人，不是期末复习。」"
+    satia "「又不是期末复习，写这么仔细。」"
     evira "「复习是为了及格。及格是不够的。」"
     "琉花抱着药袋，看了看那只药盒，又看了看千晴。"
     "她把药袋轻轻放在了药盒旁边。像把什么东西，托付出去了。"
@@ -290,7 +292,7 @@ label s1:
             show satia neutral
             satia "「喂。现在，感觉怎么样。」"
             liris "「……还活着。」"
-            satia "「行。及格。」"
+            satia "「行。」"
 
         "先递一颗话梅糖":
             $ att_liris += 1
@@ -306,7 +308,6 @@ label s1:
             $ c1_pick = "dinner"
             show satia neutral
             satia "「走了。吃饭。圣诞节，总得吃点热的。」"
-            "有些问题不需要问出口。问出口，反而就轻了。"
             "琉花站起来的动作，比这个下午任何时刻，都要快一点点。"
 
     ## ---- merge ----
@@ -388,7 +389,7 @@ label s2:
             satia "「史无前例的财政透明。」"
             evira "「两个人，一共出了十八块七。」"
             liris "「……我，十二块八。」"
-            "店员看他们的眼神，像在看什么濒危保护动物。"
+            "店员撇了他们一眼。"
 
     ## ---- merge ----
     "三个纸杯，三串关东煮。萝卜、魔芋丝、鱼豆腐，各按各的预算。"
