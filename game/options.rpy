@@ -1,4 +1,4 @@
-﻿## 此文件包含有可自定义您游戏的设置。
+## 此文件包含有可自定义您游戏的设置。
 ##
 ## 以“##”开头的语句是注释，您不应该对其取消注释。以“#”开头的语句是注释掉的代码，
 ## 在适用的时候您可能需要对其取消注释。
@@ -28,6 +28,14 @@ define config.version = "1.0"
 ## 行。
 
 define gui.about = _p("""
+
+Title screen snowfall uses Immersive Particle VFX for Ren'Py by Feniks
+(https://feniksdev.com/), MIT License.
+
+Particle illustrations:
+- Snow (snow1.webp) © 2026 by Feniks (https://feniksdev.com/)
+- Snowflakes (npckc_snow_*.png) © 2026 by npckc (https://npckc.itch.io/),
+  licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
 """)
 
 
