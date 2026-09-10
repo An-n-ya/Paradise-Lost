@@ -1,0 +1,70 @@
+name: Build Game Distributions
+
+on:
+  push:
+    branches:
+      - release
+      - 'release/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build (${{ matrix.package }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            package: linux
+            sdk_url: https://www.renpy.org/dl/8.5.3/renpy-8.5.3-sdk.tar.bz2
+          - os: windows-latest
+            package: win
+            sdk_url: https://www.renpy.org/dl/8.5.3/renpy-8.5.3-sdk.zip
+          - os: macos-latest
+            package: mac
+            sdk_url: https://www.renpy.org/dl/8.5.3/renpy-8.5.3-sdk.dmg
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Ren'Py SDK
+        run: curl -fL -o sdk_download "${{ matrix.sdk_url }}"
+
+      - name: Extract SDK (Linux)
+        if: runner.os == 'Linux'
+        run: tar -xjf sdk_download
+
+      - name: Extract SDK (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: tar -xf sdk_download
+
+      - name: Extract SDK (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          hdiutil attach sdk_download -mountpoint /Volumes/renpy-sdk -nobrowse
+          ditto /Volumes/renpy-sdk/renpy-8.5.3-sdk ./renpy-8.5.3-sdk
+          hdiutil detach /Volumes/renpy-sdk
+
+      - name: Build ${{ matrix.package }} package
+        shell: bash
+        run: |
+          SDK="renpy-8.5.3-sdk"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            LAUNCHER="$SDK/renpy.exe"
+          else
+            LAUNCHER="$SDK/renpy.sh"
+          fi
+          "$LAUNCHER" "$SDK/launcher" distribute "${{ github.workspace }}" \
+            --package "${{ matrix.package }}" \
+            --destination dist \
+            --no-update
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ParadiseLost-${{ matrix.package }}
+          path: dist/*
+          if-no-files-found: error
